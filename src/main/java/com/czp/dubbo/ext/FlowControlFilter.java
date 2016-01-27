@@ -50,7 +50,7 @@ import com.alibaba.dubbo.rpc.RpcException;
  * 
  * </pre>
  * 
- * @author: jeff.cao@aoliday.com
+ * @author: coder_czp@126.com
  * @date: 2016年1月8日
  * 
  */

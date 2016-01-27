@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Function: 基于守护进程timer
  * 
- * @author: jeff.cao@aoliday.com
+ * @author: coder_czp@126.com
  * @date: 2016年1月25日
  * 
  */

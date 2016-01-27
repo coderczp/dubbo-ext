@@ -16,7 +16,7 @@ import com.alibaba.dubbo.common.utils.ConfigUtils;
 /**
  * Function: 对相同的参数结果进行缓存
  * 
- * @author: jeff.cao@aoliday.com
+ * @author: coder_czp@126.com
  * @date: 2016年1月26日
  * 
  */
