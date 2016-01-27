@@ -1,1 +1,2 @@
+cacheFilter=com.czp.dubbo.ext.CacheFilter
 flowControlFilter=com.czp.dubbo.ext.FlowControlFilter
