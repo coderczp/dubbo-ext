@@ -11,6 +11,7 @@ import com.alibaba.dubbo.rpc.Result;
 import com.alibaba.dubbo.rpc.Invoker;
 import com.alibaba.dubbo.rpc.Invocation;
 import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.RpcResult;
 import com.alibaba.dubbo.common.utils.ConfigUtils;
 
 /**
@@ -28,7 +29,7 @@ public class CacheFilter implements Filter, Runnable {
     private String[] methodPrefix;
     
     /** 缓存查询结果,定时清空 */
-    private HashMap<String, Result> cache = new HashMap<String, Result>(500, 0.75f);
+    private HashMap<String, Object> cache = new HashMap<String, Object>(500, 0.75f);
     
     public CacheFilter() {
         int peroid = Integer.valueOf(ConfigUtils.getProperty("dubbo.cache.filter.clear.peroid", "5000"));
@@ -55,13 +56,15 @@ public class CacheFilter implements Filter, Runnable {
                 }
                 key.append("]");
                 String cacheKey = key.toString();
-                result = cache.get(cacheKey);
-                if (result != null) {
+                Object value = cache.get(cacheKey);
+                if (value != null) {
                     logger.info("cache hit:{},time:{}", cacheKey, (System.currentTimeMillis() - start));
-                    return result;
+                    return new RpcResult(value);
                 }
                 result = invoker.invoke(invo);
-                cache.put(cacheKey, result);
+                if (!result.hasException()) {
+                    cache.put(cacheKey, result.getValue());
+                }
                 logger.info("call server:{} time:{}", cacheKey, (System.currentTimeMillis() - start));
                 return result;
             }
